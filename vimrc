@@ -2,7 +2,7 @@ set nocompatible " be iMproved, required"
 " VUNDLE PACKAGE MANAGER
 filetype off " required
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/dotfiles/vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle, required
@@ -65,10 +65,10 @@ filetype plugin indent on    " required
 
 
 " Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
+set backupdir=~/dotfiles/vim/backups
+set directory=~/dotfiles/vim/swaps
 if exists("&undodir")
-    set undodir=~/.vim/undo
+    set undodir=~/dotfiles/vim/undo
 endif
 
 
@@ -189,9 +189,8 @@ nmap s <Plug>(easymotion-s)
 
 " COMMANDS
 com! JSONFormat %!python -m json.tool
-com! Refresh w | so ~/.vimrc
+com! Refresh w | so ~/dotfiles/vimrc
 com! JSFormat call JsBeautify()
-com! Init13 source ~/.vim/init-one-three.vim
 
 
 
