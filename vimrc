@@ -3,7 +3,7 @@ set nocompatible " be iMproved, required"
 filetype off " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/dotfiles/vim/bundle/Vundle.vim
-call vundle#begin()
+call vundle#begin("~/dotfiles/vim/bundle/")
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
