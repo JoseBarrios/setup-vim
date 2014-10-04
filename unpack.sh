@@ -31,10 +31,10 @@ for file in $files; do
 done
 
 echo "Creating vim directories (swap, backups, etc)"
-mkdir -p ~/dotfiles/vim/backups
-mkdir -p ~/dotfiles/vim/swaps
-mkdir -p ~/dotfiles/vim/undo
-mkdir -p ~/dotfiles/vim/bundle
+mkdir -p $dir/vim/backups
+mkdir -p $dir/vim/swaps
+mkdir -p $dir/vim/undo
+mkdir -p $dir/vim/bundle
 # linking vim to ./vim in the home directory
 ln -s $dir/vim ~/.vim
 echo "Installing vim plugins"
