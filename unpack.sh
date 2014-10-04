@@ -30,20 +30,13 @@ for file in $files; do
     ln -s $dir/$file ~/.$file
 done
 
-
 echo "Creating vim directories (swap, backups, etc)"
 mkdir -p ~/dotfiles/vim/backups
 mkdir -p ~/dotfiles/vim/swaps
 mkdir -p ~/dotfiles/vim/undo
 mkdir -p ~/dotfiles/vim/bundle
 # linking vim to ./vim in the home directory
-ln -s $dir/vim/ ~/.vim
+ln -s $dir/vim ~/.vim
 echo "Installing vim plugins"
 git clone https://github.com/gmarik/Vundle.vim.git ~/dotfiles/vim/bundle/Vundle.vim
 vim +PluginInstall +qall
-while [ ! -f  ~/dotfiles/vim/bundle/YouCompleteMe/install.sh]
-do
-    sleep 1
-done
-echo "Installing YCM for vim's YouCompleteMe autocomplete plugin "
-~/dotfiles/vim/bundle/YouCompleteMe/install.sh

@@ -10,7 +10,6 @@ Plugin 'gmarik/Vundle.vim'
 " General text utilities
 Plugin 'Raimondi/delimitMate'
 Plugin 'scrooloose/syntastic'
-Plugin 'Valloric/YouCompleteMe'
 " JS enhanced support
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'Yggdroot/indentLine'
