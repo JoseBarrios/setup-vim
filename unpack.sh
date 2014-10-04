@@ -35,8 +35,7 @@ mkdir -p $dir/vim/backups
 mkdir -p $dir/vim/swaps
 mkdir -p $dir/vim/undo
 mkdir -p $dir/vim/bundle
-# linking vim to ./vim in the home directory
-ln -s $dir/vim ~/.vim
+
 echo "Installing vim plugins"
 git clone https://github.com/gmarik/Vundle.vim.git ~/dotfiles/vim/bundle/Vundle.vim
 vim +PluginInstall +qall
