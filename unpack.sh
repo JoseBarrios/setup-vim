@@ -4,25 +4,54 @@
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 ############################
 
-########## Variables
 
-dir=~/dotfiles                    # dotfiles directory
-olddir=~/dotfiles_old             # old dotfiles backup directory
-files="vimrc"    # list of files/folders to symlink in homedir
 
-##########
+#################
+#   VARIABLES   #
+#################
+files="vimrc"           # list of files/folders to symlink in homedir
+dir=~/dotfiles          # dotfiles directory
+vim=~/dotfiles/vim      # vim settings directory
+olddir=~/dotfiles_old   # old dotfiles backup directory
+vimbackups=$vim/backups
+vimbundle=$vim/bundle
+vimswaps=$vim/swaps
+vimundo=$vim/undo
 
-# create dotfiles_old in homedir
-echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
-mkdir -p $olddir
-echo "done"
 
-# change to the dotfiles directory
-echo -n "Changing to the $dir directory ..."
-cd $dir
-echo "done"
+
+#################
+#   FUNCTIONS   #
+#################
+
+# INFO:   Creates a directory if one doesn't already exist
+# INPUT:  $1 = directory, $2 command to execute once directory exists
+function makeDirectory {
+    if [ ! -d "$1" ]; then 
+        mkdir -p "$1"
+        echo "Created directory: $1"
+    else
+        echo "Directory $1 already exists"
+    fi
+    # Is there a 2nd argument passed?
+    if [ ! -z "$2" ]; then
+        eval "$2"
+    fi
+}
+
+
+
+#############
+#   MAIN    #
+#############
+makeDirectory $olddir
+makeDirectory $vimswaps
+makeDirectory $vimbackups
+makeDirectory $vimundo
+makeDirectory $vimbundle "git clone https://github.com/gmarik/Vundle.vim.git $vimbundle/Vundle.vim" 
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
+cd $dir
 for file in $files; do
     echo "Moving any existing dotfiles from ~ to $olddir"
     mv ~/.$file ~/dotfiles_old/
@@ -30,12 +59,12 @@ for file in $files; do
     ln -s $dir/$file ~/.$file
 done
 
-echo "Creating vim directories (swap, backups, etc)"
-mkdir -p $dir/vim/backups
-mkdir -p $dir/vim/swaps
-mkdir -p $dir/vim/undo
-mkdir -p $dir/vim/bundle
-
+# Install plugins defined in vimrc
 echo "Installing vim plugins"
-git clone https://github.com/gmarik/Vundle.vim.git ~/dotfiles/vim/bundle/Vundle.vim
 vim +PluginInstall +qall
+wait
+
+# Additional setup for plugins 
+if [ -d "$vimbundle/tern_for_vim/" ]; then 
+    npm install "$vimbundle/tern_for_vim/" 
+fi
