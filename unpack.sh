@@ -67,5 +67,7 @@ wait
 # Additional setup for plugins 
 echo "Configuring plugins"
 if [ -d "$vimbundle/tern_for_vim/" ]; then 
-    npm install "$vimbundle/tern_for_vim/" 
+    pushd "$vimbundle/tern_for_vim/"
+    npm install 
+    popd
 fi
