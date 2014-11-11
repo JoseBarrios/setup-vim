@@ -71,3 +71,8 @@ if [ -d "$vimbundle/tern_for_vim/" ]; then
     npm install 
     popd
 fi
+if [ -d "$vimbundle/YouCompleteMe/" ]; then 
+    pushd "$vimbundle/YouCompleteMe/"
+    ./install.sh
+    popd
+fi
