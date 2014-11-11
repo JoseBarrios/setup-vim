@@ -53,7 +53,7 @@ Plugin 'mkitt/tabline.vim'
 " Status bar improvements
 Plugin 'bling/vim-airline'
 " Shell emulator for vim windows
-Plugin 'vim-scripts/Conque-Shell'
+Plugin 'oplatek/Conque-Shell'
 " Window/Layout manager
 Plugin 'wesQ3/vim-windowswap'
 " Auto complete for JS (and maybe C based langages, if you want)
