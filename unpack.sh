@@ -9,10 +9,10 @@ git pull origin master
 #################
 #   VARIABLES   #
 #################
-files="vimrc"           # list of files/folders to symlink in homedir
-dir=~/dotfiles          # dotfiles directory
-vim=~/dotfiles/vim      # vim settings directory
-olddir=~/dotfiles_old   # old dotfiles backup directory
+files="vimrc vim"   # list of files/folders to symlink in homedir
+dir=${PWD}         	# dotfiles directory
+vim=$dir/vim      	# vim settings directory
+olddir=$vim/old   	# old dotfiles backup directory
 vimbackups=$vim/backups
 vimbundle=$vim/bundle
 vimswaps=$vim/swaps
@@ -44,21 +44,21 @@ function makeDirectory {
 #############
 #   MAIN    #
 #############
+makeDirectory $vim
 makeDirectory $olddir
 makeDirectory $vimswaps
 makeDirectory $vimbackups
 makeDirectory $vimundo
 makeDirectory $vimbundle "git clone https://github.com/gmarik/Vundle.vim.git $vimbundle/Vundle.vim" 
 
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
+# move any existing dotfiles in homedir to dot_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
 cd $dir
 for file in $files; do
     echo "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/.$file ~/dotfiles_old/
+    mv ~/.$file $olddir/
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
 done
-
 # Install plugins defined in vimrc
 echo "Installing vim plugins"
 vim +PluginInstall +qall
