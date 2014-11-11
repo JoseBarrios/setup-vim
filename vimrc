@@ -56,6 +56,8 @@ Plugin 'bling/vim-airline'
 Plugin 'vim-scripts/Conque-Shell'
 " Window/Layout manager
 Plugin 'wesQ3/vim-windowswap'
+" Auto complete for JS (and maybe C based langages, if you want)
+Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
