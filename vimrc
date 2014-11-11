@@ -56,6 +56,8 @@ Plugin 'bling/vim-airline'
 Plugin 'vim-scripts/Conque-Shell'
 " Window/Layout manager
 Plugin 'wesQ3/vim-windowswap'
+" Auto complete for JS (and maybe C based langages, if you want)
+Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -92,7 +94,7 @@ set tabstop=4     " tab is 4 columns long
 set shiftwidth=4  " autoindent is 4 spaces long
 set expandtab     " insert mode: Use the appropriate number of spaces to insert a tab
 set incsearch     " Find as you type
-"set list          " displays whitespace
+set list          " displays whitespace
 set hlsearch      " Highlight searches
 set showmode      " how the current mode
 set laststatus=2  " Always show the status line
