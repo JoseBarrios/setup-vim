@@ -171,6 +171,7 @@ nmap <Leader>< :vertical resize -5 <CR>
 
 nmap <Leader>l :tabnext <CR>
 nmap <Leader>h :tabprev <CR>
+nmap <Leader>w :wall <CR>
 
 " GET RID OF NOOB HABITS BY DISABILIING ARROW KEYS
 nnoremap <up> <nop>
@@ -183,10 +184,9 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 
 " Bi-directional find motion
-nmap s <Plug>(easymotion-s)
+nmap f <Plug>(easymotion-s)
 "map <Leader>j <Plug>(easymotion-j)
 "map <Leader>k <Plug>(easymotion-k)
-
 
 " COMMANDS
 com! JSONFormat %!python -m json.tool
