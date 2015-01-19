@@ -58,6 +58,11 @@ Plugin 'oplatek/Conque-Shell'
 Plugin 'wesQ3/vim-windowswap'
 " Auto complete for JS (and maybe C based langages, if you want)
 Plugin 'Valloric/YouCompleteMe'
+" C/C++ highlighting
+Plugin 'octol/vim-cpp-enhanced-highlight'
+" Dynamic snippets
+Plugin 'mattn/emmet-vim'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -132,6 +137,7 @@ let g:airline#extensions#csv#enabled = 1
 let g:airline#extensions#tmuxline#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
+
 "let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline_detect_modified=1
@@ -139,6 +145,9 @@ let g:airline_detect_paste=1
 let g:airline_powerline_fonts=1
 let g:tagbar_iconchars = ['▸', '▾']
 highlight clear SignColumn
+
+" C/C++ highlight enabled
+let g:cpp_class_scope_highlight = 1
 
 let g:windowswap_map_keys = 0 "prevent default bindings
 nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
@@ -163,14 +172,13 @@ let g:EasyMotion_do_mapping = 0 " Disable default mappings
 "nmap <C-k> ddkP
 "nmap <silent> <C-h> :tabp <CR>
 "nmap <silent> <C-l> :tabn <CR>
-
 nmap <Leader>^ :res -5 <CR>
 nmap <Leader>v :res +5 <CR>
 nmap <Leader>> :vertical resize +5 <CR>
 nmap <Leader>< :vertical resize -5 <CR>
 
 nmap <Leader>l :tabnext <CR>
-nmap <Leader>h :tabprev <CR>
+nmap <Leader>j :tabprev <CR>
 nmap <Leader>w :wall <CR>
 
 " GET RID OF NOOB HABITS BY DISABILIING ARROW KEYS
@@ -178,11 +186,11 @@ nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
 
+" Avoid using repeating keystrokes to navegate horizintal lines, use
+" easyMotion
+nmap h <nop>
+nmap l <nop>
 " Bi-directional find motion
 nmap f <Plug>(easymotion-s)
 "map <Leader>j <Plug>(easymotion-j)
@@ -192,6 +200,3 @@ nmap f <Plug>(easymotion-s)
 com! JSONFormat %!python -m json.tool
 com! Refresh w | so ~/.vimrc
 com! JSFormat call JsBeautify()
-
-
-
