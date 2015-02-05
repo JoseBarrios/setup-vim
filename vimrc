@@ -167,11 +167,6 @@ nmap <silent> <C-k> :wincmd k <CR>
 nmap <silent> <C-j> :wincmd j <CR>
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-" COOL BUT UNUSED
-"nmap <C-j> ddp
-"nmap <C-k> ddkP
-"nmap <silent> <C-h> :tabp <CR>
-"nmap <silent> <C-l> :tabn <CR>
 nmap <Leader>^ :res -5 <CR>
 nmap <Leader>v :res +5 <CR>
 nmap <Leader>> :vertical resize +5 <CR>
@@ -180,12 +175,6 @@ nmap <Leader>< :vertical resize -5 <CR>
 nmap <Leader>l :tabnext <CR>
 nmap <Leader>j :tabprev <CR>
 nmap <Leader>w :wall <CR>
-
-" GET RID OF NOOB HABITS BY DISABILIING ARROW KEYS
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
 
 " Avoid using repeating keystrokes to navegate horizintal lines, use
 " easyMotion
