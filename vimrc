@@ -1,3 +1,8 @@
+"-----------------
+" VUNDLE PLUGINS:
+"------------------
+"
+
 set nocompatible " be iMproved, required"
 " VUNDLE PACKAGE MANAGER
 filetype off " required
@@ -15,8 +20,8 @@ Plugin 'jelera/vim-javascript-syntax'
 Plugin 'Yggdroot/indentLine'
 Plugin 'pangloss/vim-javascript'
 Plugin 'marijnh/tern_for_vim'
-Plugin 'maksimr/vim-jsbeautify'
 Plugin 'einars/js-beautify'
+Plugin 'maksimr/vim-jsbeautify'
 " Tabularize support
 Plugin 'godlygeek/tabular'
 " Fast comments  support
@@ -52,8 +57,6 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'mkitt/tabline.vim'
 " Status bar improvements
 Plugin 'bling/vim-airline'
-" Shell emulator for vim windows
-Plugin 'oplatek/Conque-Shell'
 " Window/Layout manager
 Plugin 'wesQ3/vim-windowswap'
 " Auto complete for JS (and maybe C based langages, if you want)
@@ -62,20 +65,85 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 " Dynamic snippets
 Plugin 'mattn/emmet-vim'
-
+" JS-Doc
+Bundle 'heavenshell/vim-jsdoc'     
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
+"------------------------------------------------------------------------
 
 
-" Centralize backups, swapfiles and undo history
+
+" VIM FOLDERS:
+"------------------------------------------------------------------------
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
 if exists("&undodir")
     set undodir=~/.vim/undo
 endif
+"------------------------------------------------------------------------
+
+
+
+" MAPPINGS:
+"------------------------------------------------------------------------
+"
+"Commands                        Mode
+"--------                        ----
+"nmap, nnoremap, nunmap          Normal mode
+"imap, inoremap, iunmap          Insert and Replace mode
+"vmap, vnoremap, vunmap          Visual and Select mode
+"xmap, xnoremap, xunmap          Visual mode
+"smap, snoremap, sunmap          Select mode
+"cmap, cnoremap, cunmap          Command-line mode
+"omap, onoremap, ounmap          Operator pending mode
+
+" WINDOW SWAP
+"map <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
+"nmap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
+map <silent> <leader>ww :call WindowSwap#EasyWindowSwap()<CR>
+" GUNDO
+nmap <silent> <C-u> :GundoToggle<CR>
+" NERDTree
+nmap <silent> <C-n> :NERDTreeToggle<CR>
+" TAGBAR
+nmap <silent> <C-o> :TagbarToggle<CR>
+" CTL-P
+nmap <silent> <C-p> :CtrlPMixed<CR>
+" TAB
+nmap <silent> <C-t> :tabnew<CR>
+" WINDOW OPTS
+nmap <Leader>hh :wincmd h<CR>
+nmap <Leader>ll :wincmd l<CR>
+nmap <Leader>kk :wincmd k<CR>
+nmap <Leader>jj :wincmd j<CR>
+
+nmap <Leader>r :Refresh<CR>
+nmap <Leader>q :wq<CR>
+nmap <Leader>w :wall<CR>
+nmap <Leader>^ :res -5<CR>
+nmap <Leader>v :res +5<CR>
+nmap <Leader>> :vertical resize +5<CR>
+nmap <Leader>< :vertical resize -5<CR>
+
+" JSDOC
+nmap <Leader>c :JsDoc<CR>
+" Tab navegation
+map <Leader>l :tabnext<CR>
+map <Leader>h :tabprev<CR>
+" SAVING
+map <C-w> :wall<CR>
+" Avoid using repeating keystrokes to navegate horizintal lines, use
+" easyMotion
+"map h <nop>
+"map l <nop>
+" Bi-directional find motion
+nmap f <Plug>(easymotion-s)
+"------------------------------------------------------------------------
+
+
 
 
 " CUSTOM SETTINGS
@@ -113,6 +181,18 @@ set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_ " show “invisible” characters
 set nolist "Hide invisible characters
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " ignore filetype list for MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " ignore filetype list for Windows
+" Synestatic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+
+
+
+
+
+
+
 
 
 " THEME
@@ -138,6 +218,7 @@ let g:airline#extensions#tmuxline#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 
+" Keep default theme for tabline, much better than airlines
 "let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline_detect_modified=1
@@ -149,43 +230,41 @@ highlight clear SignColumn
 " C/C++ highlight enabled
 let g:cpp_class_scope_highlight = 1
 
-let g:windowswap_map_keys = 0 "prevent default bindings
-nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
-nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
-nnoremap <silent> <leader>ww :call WindowSwap#EasyWindowSwap()<CR>
+" SYNTASTIC
+let g:syntastic_javascript_closurecompiler_script = '/usr/local/Cellar/closure-linter/2.3.13/bin'
+let g:syntastic_javascript_checkers = ["gjslint"]
+let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_highlighting = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
 
-" MAPPINGS
-noremap <silent> <C-u> :GundoToggle<CR>
-noremap <silent> <C-n> :NERDTreeToggle<CR>
-noremap <silent> <C-o> :TagbarToggle <CR>
-noremap <silent> <C-p> :CtrlPMixed <CR>
-noremap <silent> <C-t> :tabnew <CR>
-"Navegate buffers and tabs
-nmap <silent> <C-h> :wincmd h <CR>
-nmap <silent> <C-l> :wincmd l <CR>
-nmap <silent> <C-k> :wincmd k <CR>
-nmap <silent> <C-j> :wincmd j <CR>
+" WINDOW SWAP 
+let g:windowswap_map_keys = 0 "prevent default bindings
+let g:airline#extensions#windowswap#enabled = 1
+let g:airline#extensions#windowswap#indicator_text = 'WS'
+
+" JSDOC
+let g:jsdoc_allow_input_prompt = 1
+let g:jsdoc_input_description = 1
+
+" EASY MOTION
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-nmap <Leader>^ :res -5 <CR>
-nmap <Leader>v :res +5 <CR>
-nmap <Leader>> :vertical resize +5 <CR>
-nmap <Leader>< :vertical resize -5 <CR>
-
-nmap <Leader>l :tabnext <CR>
-nmap <Leader>j :tabprev <CR>
-nmap <Leader>w :wall <CR>
-
-" Avoid using repeating keystrokes to navegate horizintal lines, use
-" easyMotion
-nmap h <nop>
-nmap l <nop>
-" Bi-directional find motion
-nmap f <Plug>(easymotion-s)
-"map <Leader>j <Plug>(easymotion-j)
-"map <Leader>k <Plug>(easymotion-k)
+highlight SyntasticErrorSign guifg=black guibg=black
+highlight SyntasticWarningLine guifg=black guibg=black
+highlight SyntasticStyleErrorLine guifg=black guibg=black
+highlight SyntasticStyleWarningLine guifg=black guibg=black
 
 " COMMANDS
 com! JSONFormat %!python -m json.tool
 com! Refresh w | so ~/.vimrc
 com! JSFormat call JsBeautify()
+
+
+" Automatic commands
+autocmd BufWritePre *.js :%s/\s\+$//e
+" Auto JSBeautify on start (for js files only)
+autocmd BufWritePre *.js :JSFormat
+" Closes nerdtree if it's the only window left to close in vim
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
