@@ -60,8 +60,8 @@ Plugin 'heavenshell/vim-jsdoc'
 Plugin 'tpope/vim-sensible'
 " Syntax helper
 Plugin 'scrooloose/syntastic'
-" Solarized colors:
-Plugin 'blueyed/vim-colors-solarized'
+" Hex coloring
+Plugin 'vim-scripts/hexHighlight.vim'
 
 " Tagline Outline
 " All of your Plugins must be added before the following line
@@ -146,7 +146,7 @@ set efm=jade:%f:%l:%c:%t:%m "Parse Jade errors
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_ " show “invisible” characters
 
 
-let g:airline_theme = 'light'
+let g:airline_theme = 'sol'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#csv#enabled = 1
 let g:airline#extensions#tmuxline#enabled = 1
@@ -179,7 +179,6 @@ autocmd BufWritePre *.js :%s/\s\+$//e
 autocmd BufWritePre *.js :JSFormat
 
 
-
 "  SOLARIZED SETTINGS
 "------------------------------------------------------------------------
 let g:solarized_termcolors=256
@@ -187,6 +186,11 @@ syntax enable
 set background=dark
 let g:solarized_termtrans = 1
 colorscheme solarized
+" Custom line column colors
+highlight LineNr ctermbg=NONE ctermfg=59
+highlight SignColumn ctermbg=NONE guibg=NONE 
+highlight GitGutterAdd ctermfg=green guifg=green 
+highlight GitGutterChange ctermfg=yellow guifg=yellow
+highlight GitGutterDelete ctermfg=red guifg=red
+highlight GitGutterChangeDelete ctermfg=yellow guifg=yellow
 "------------------------------------------------------------------------
-
-
