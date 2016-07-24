@@ -73,6 +73,6 @@ if [ -d "$vimbundle/tern_for_vim/" ]; then
 fi
 if [ -d "$vimbundle/YouCompleteMe/" ]; then 
     pushd "$vimbundle/YouCompleteMe/"
-    ./install.sh
+    ./install.py
     popd
 fi
