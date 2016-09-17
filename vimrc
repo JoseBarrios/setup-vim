@@ -61,6 +61,7 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'mkitt/tabline.vim'
 " Status bar improvements
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 " Window/Layout manager
 Plugin 'wesQ3/vim-windowswap'
 " Auto complete for JS (and maybe C based langages, if you want)
