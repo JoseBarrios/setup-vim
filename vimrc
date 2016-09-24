@@ -21,7 +21,9 @@ Plugin 'Chiel92/vim-autoformat'
 "Plugin 'einars/js-beautify'
 "Plugin 'maksimr/vim-jsbeautify'
 " Plugin HTML
-Plugin 'othree/html5.vim'
+"Plugin 'othree/html5.vim'
+"LANGUAGE SUPPORT
+Plugin 'sheerun/vim-polyglot'
 " JSX enhanced support
 Plugin 'mxw/vim-jsx'
 Bundle "justinj/vim-react-snippets"
@@ -74,8 +76,8 @@ Plugin 'mattn/emmet-vim'
 Plugin 'tpope/vim-sensible'
 " Syntax helper
 Plugin 'scrooloose/syntastic'
-" Hex coloring
-Plugin 'vim-scripts/hexHighlight.vim'
+" Reference APIs
+Plugin 'rizzatti/dash.vim'
 
 " Tagline Outline
 " All of your Plugins must be added before the following line
@@ -192,22 +194,20 @@ let macvim_skip_colorscheme=1
 
 " COMMANDS
 com! Refresh w | so ~/.vimrc
-com! AF silent Autoformat
-
-" TO DELETE
-"com! HTMLFormat !tidy -mi -html % | w
-"com! JSONFormat %!python -m json.tool
+"com! AF Autoformat
+com! HTMLFormat !tidy -mi -html %
+com! JSONFormat %!python -m json.tool
 
 
 " AUTOCOMMANDS
 " Gets rid of whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 " AutoFormat
-autocmd BufWritePre *.js :AF
-autocmd BufWritePre *.json :AF
-autocmd BufWritePre *.html :AF
-autocmd BufWritePre *.css :AF
-autocmd BufWritePre *.scss :AF
+"autocmd BufWritePre *.js :AF
+"autocmd BufWritePre *.json :JSONFormat
+"autocmd BufWritePre *.html :HTMLFormat
+"autocmd BufWritePre *.css :AF
+"autocmd BufWritePre *.scss :AF
 " Remeber the last line before closing file
 autocmd BufReadPost * call setpos(".", getpos("'\""))
 
