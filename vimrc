@@ -13,11 +13,11 @@ Plugin 'gmarik/Vundle.vim'
 " General text utilities
 Plugin 'Raimondi/delimitMate'
 " JS enhanced support
-Plugin 'Yggdroot/indentLine'
-Plugin 'pangloss/vim-javascript'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'Chiel92/vim-autoformat'
+"Plugin 'Yggdroot/indentLine'
+"Plugin 'pangloss/vim-javascript'
+"Plugin 'jelera/vim-javascript-syntax'
+"Plugin 'marijnh/tern_for_vim'
+"Plugin 'Chiel92/vim-autoformat'
 "Plugin 'einars/js-beautify'
 "Plugin 'maksimr/vim-jsbeautify'
 " Plugin HTML
@@ -25,8 +25,8 @@ Plugin 'Chiel92/vim-autoformat'
 "LANGUAGE SUPPORT
 Plugin 'sheerun/vim-polyglot'
 " JSX enhanced support
-Plugin 'mxw/vim-jsx'
-Bundle "justinj/vim-react-snippets"
+"Plugin 'mxw/vim-jsx'
+"Bundle "justinj/vim-react-snippets"
 " SnipMate and its dependencies:
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
@@ -34,7 +34,7 @@ Bundle "garbas/vim-snipmate"
 " Other sets of snippets (optional):
 Bundle "honza/vim-snippets"
 " Tabularize support
-Plugin 'godlygeek/tabular'
+"Plugin 'godlygeek/tabular'
 " Fast comments  support
 Plugin 'scrooloose/nerdcommenter'
 " CSV support
@@ -45,16 +45,16 @@ Plugin 'vim-scripts/jade.vim'
 " JSON enhanced
 Plugin 'elzr/vim-json'
 " Coffeescript support
-Plugin 'kchmck/vim-coffee-script'
+"Plugin 'kchmck/vim-coffee-script'
 " GitHub support
-Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 " File Treeview
 Plugin 'scrooloose/nerdtree'
 " Undo history tree
 Plugin 'sjl/gundo.vim'
 " Find files
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
 " Tagline Outline
 Plugin 'edkolev/tmuxline.vim'
 " Easier navegation
@@ -75,9 +75,9 @@ Plugin 'mattn/emmet-vim'
 " Sets universal defaults
 Plugin 'tpope/vim-sensible'
 " Syntax helper
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 " Reference APIs
-Plugin 'rizzatti/dash.vim'
+"Plugin 'rizzatti/dash.vim'
 
 " Tagline Outline
 " All of your Plugins must be added before the following line
@@ -149,6 +149,22 @@ nmap <Leader>< :vertical resize -5<CR>
 
 
 
+" JAVASCRIPT:
+"------------------------------------------------------------------------
+".vimrc
+map <c-f> :call JsBeautify()<cr>
+" or
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" for json
+autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
+" for jsx
+autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
+" for html
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+
+
 
 
 " VIM PROPERTIES
@@ -194,19 +210,20 @@ let macvim_skip_colorscheme=1
 
 " COMMANDS
 com! Refresh w | so ~/.vimrc
+"com! HTMLFormat !tidy -mi -html % | w
 "com! AF Autoformat
-com! HTMLFormat !tidy -mi -html %
-com! JSONFormat %!python -m json.tool
+"com! JSONFormat %!python -m json.tool
 
 
 " AUTOCOMMANDS
 " Gets rid of whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 " AutoFormat
-"autocmd BufWritePre *.js :AF
-"autocmd BufWritePre *.json :JSONFormat
-"autocmd BufWritePre *.html :HTMLFormat
-"autocmd BufWritePre *.css :AF
+"autocmd BufWritePre *.js :call JsBeautify()
+"autocmd BufWritePre *.json :call JsonBeautify()
+"autocmd BufWritePre *.jsx :call JsxBeautify()
+"autocmd BufWritePre *.html :call HtmlBeautify()
+"autocmd BufWritePre *.css :call CSSBeautify()
 "autocmd BufWritePre *.scss :AF
 " Remeber the last line before closing file
 autocmd BufReadPost * call setpos(".", getpos("'\""))
