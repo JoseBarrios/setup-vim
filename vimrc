@@ -10,74 +10,73 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-" General text utilities
+
+
+""""""""""""""""""
+" GENERAL FORMATTING:
+""""""""""""""""""
+" Automatic closing of quotes, parentesis, brackets, etc
 Plugin 'Raimondi/delimitMate'
-" JS enhanced support
-"Plugin 'Yggdroot/indentLine'
-"Plugin 'pangloss/vim-javascript'
-"Plugin 'jelera/vim-javascript-syntax'
-"Plugin 'marijnh/tern_for_vim'
-"Plugin 'Chiel92/vim-autoformat'
-"Plugin 'einars/js-beautify'
-"Plugin 'maksimr/vim-jsbeautify'
-" Plugin HTML
-"Plugin 'othree/html5.vim'
-"LANGUAGE SUPPORT
+" Sets sensible defaults
+Plugin 'tpope/vim-sensible'
+
+
+""""""""""""""""""
+" LANGUAGE:
+""""""""""""""""""
+" Various language syntax and indentation support
 Plugin 'sheerun/vim-polyglot'
-" JSX enhanced support
-"Plugin 'mxw/vim-jsx'
-"Bundle "justinj/vim-react-snippets"
-" SnipMate and its dependencies:
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-" Other sets of snippets (optional):
-Bundle "honza/vim-snippets"
-" Tabularize support
-"Plugin 'godlygeek/tabular'
-" Fast comments  support
+" Autocomplete with tab, uses snippets:
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+" On request snippets templates
+Plugin 'mattn/emmet-vim'
+" Auto complete for JS (and maybe C based langages, if you want)
+Plugin 'Valloric/YouCompleteMe'
+" Comment lines faster
 Plugin 'scrooloose/nerdcommenter'
+
+
+""""""""""""""""""
+" FILE PARSE AND FORMAT SUPPORT:
+""""""""""""""""""
 " CSV support
 Plugin 'chrisbra/csv.vim'
-" NODE support
-Plugin 'digitaltoad/vim-jade'
-Plugin 'vim-scripts/jade.vim'
-" JSON enhanced
-Plugin 'elzr/vim-json'
-" Coffeescript support
-"Plugin 'kchmck/vim-coffee-script'
-" GitHub support
-"Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
+
+
+""""""""""""""""""
+" LAYOUT:
+""""""""""""""""""
 " File Treeview
 Plugin 'scrooloose/nerdtree'
-" Undo history tree
-Plugin 'sjl/gundo.vim'
-" Find files
-"Plugin 'kien/ctrlp.vim'
-" Tagline Outline
+" Tagline / vim editor footer with info
 Plugin 'edkolev/tmuxline.vim'
-" Easier navegation
-Plugin 'Lokaltog/vim-easymotion'
 " Buffer tabs
 Plugin 'mkitt/tabline.vim'
 " Status bar improvements
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+
+
+""""""""""""""""""
+" VERSIONING SUPPORT:
+""""""""""""""""""
+" GitHub gutter sinage
+Plugin 'airblade/vim-gitgutter'
+" Undo history tree
+Plugin 'sjl/gundo.vim'
+
+
+""""""""""""""""""
+" NAVIGATION AND SEARCH:
+""""""""""""""""""
+" Find files
+Plugin 'kien/ctrlp.vim'
+" Easier navegation by jumping to matching character
+Plugin 'Lokaltog/vim-easymotion'
 " Window/Layout manager
 Plugin 'wesQ3/vim-windowswap'
-" Auto complete for JS (and maybe C based langages, if you want)
-Plugin 'Valloric/YouCompleteMe'
-" Dynamic snippets
-Plugin 'mattn/emmet-vim'
-" JS-Doc
-"Plugin 'heavenshell/vim-jsdoc'
-" Sets universal defaults
-Plugin 'tpope/vim-sensible'
-" Syntax helper
-"Plugin 'scrooloose/syntastic'
-" Reference APIs
-"Plugin 'rizzatti/dash.vim'
+
 
 " Tagline Outline
 " All of your Plugins must be added before the following line
@@ -123,15 +122,12 @@ nmap <silent> <C-u> :GundoToggle<CR>
 nmap <silent> <C-n> :NERDTreeToggle<CR>
 " TAGBAR
 nmap <silent> <C-o> :TagbarToggle<CR>
-" CTL-P
-nmap <silent> <C-p> :CtrlPMixed<CR>
 " TAB
 nmap <silent> <C-t> :tabnew<CR>
-" JSDOC
-nmap <Leader>c :JsDoc<CR>
 " EASY MOTION
 nmap f <Plug>(easymotion-s)
-" UTILS
+
+" GENERAL
 nmap <C-h> :wincmd h<CR>
 nmap <C-l> :wincmd l<CR>
 nmap <C-k> :wincmd k<CR>
@@ -145,29 +141,11 @@ nmap <Leader>^ :res -5<CR>
 nmap <Leader>v :res +5<CR>
 nmap <Leader>> :vertical resize +5<CR>
 nmap <Leader>< :vertical resize -5<CR>
-"------------------------------------------------------------------------
-
-
-
-" JAVASCRIPT:
-"------------------------------------------------------------------------
-".vimrc
-map <c-f> :call JsBeautify()<cr>
-" or
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-" for json
-autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
-" for jsx
-autocmd FileType jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
-" for html
-autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-" for css or scss
-autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
 
 
 
-" VIM PROPERTIES
+" VIM PROPERTIES:
 ""------------------------------------------------------------------------
 set undofile
 set undolevels=1000 "maximum number of changes that can be undone
@@ -177,10 +155,21 @@ set hlsearch " Highlight search matches"
 set tabstop=4 shiftwidth=4 expandtab
 set scrolloff=30
 set autowrite " Saves buffers when switching to others -saves a save"
-set efm=jade:%f:%l:%c:%t:%m "Parse Jade errors
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_ " show “invisible” characters
 
 
+
+
+
+" PLUGINS CUSTOMIZATION:
+""------------------------------------------------------------------------
+
+" SNIPPET AUTOCOMPLETE (with tab)
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" AIRLINE
 let g:airline_theme = 'sol'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#csv#enabled = 1
@@ -192,39 +181,24 @@ let g:airline_powerline_fonts=1
 " GUTTER
 let g:gitgutter_max_signs=10000000
 
-" JSX
-let g:jsx_ext_required = 0
-
-" SYNTASTIC
-let g:syntastic_javascript_closurecompiler_script = '/usr/local/Cellar/closure-linter/2.3.13/bin'
-let g:syntastic_javascript_checkers = ["gjslint"]
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_highlighting = 0
-
-" JSDOC
-let g:jsdoc_allow_input_prompt = 1
-let g:jsdoc_input_description = 1
-
 " MACVIM
 let macvim_skip_colorscheme=1
 
-" COMMANDS
+
+
+
+" CUSTOM COMMANDS:
+""------------------------------------------------------------------------
+" Updates vim with the latest vimrc
 com! Refresh w | so ~/.vimrc
-"com! HTMLFormat !tidy -mi -html % | w
 "com! AF Autoformat
+"com! HTMLFormat !tidy -mi -html %
 "com! JSONFormat %!python -m json.tool
 
 
 " AUTOCOMMANDS
-" Gets rid of whitespace
+" Gets rid of whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
-" AutoFormat
-"autocmd BufWritePre *.js :call JsBeautify()
-"autocmd BufWritePre *.json :call JsonBeautify()
-"autocmd BufWritePre *.jsx :call JsxBeautify()
-"autocmd BufWritePre *.html :call HtmlBeautify()
-"autocmd BufWritePre *.css :call CSSBeautify()
-"autocmd BufWritePre *.scss :AF
 " Remeber the last line before closing file
 autocmd BufReadPost * call setpos(".", getpos("'\""))
 
@@ -232,10 +206,7 @@ autocmd BufReadPost * call setpos(".", getpos("'\""))
 
 
 
-
-
-
-"  SOLARIZED SETTINGS
+"  SOLARIZED SETTINGS:
 "------------------------------------------------------------------------
 syntax enable
 set background=dark
