@@ -80,7 +80,9 @@ if [ -d "$vimbundle/tern_for_vim/" ]; then
 fi
 if [ -d "$vimbundle/YouCompleteMe/" ]; then
     pushd "$vimbundle/YouCompleteMe/"
-    /usr/bin/env python3 install.py
-    ./install.py
+    git submodule update --init --recursive
+    brew install cmake macvim
+    python3 install.py
+    ./install.py -all --clangd-completer
     popd
 fi
