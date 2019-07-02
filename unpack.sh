@@ -5,7 +5,6 @@
 ############################
 git pull origin master
 
-
 #################
 #   VARIABLES   #
 #################
@@ -19,12 +18,9 @@ vimbundle=$vim/bundle
 vimswaps=$vim/swaps
 vimundo=$vim/undo
 
-
-
 #################
 #   FUNCTIONS   #
 #################
-
 # INFO:   Creates a directory if one doesn't already exist
 # INPUT:  $1 = directory, $2 command to execute once directory exists
 function makeDirectory {
@@ -39,8 +35,6 @@ function makeDirectory {
         eval "$2"
     fi
 }
-
-
 
 #############
 #   MAIN    #
@@ -82,7 +76,7 @@ if [ -d "$vimbundle/YouCompleteMe/" ]; then
     pushd "$vimbundle/YouCompleteMe/"
     git submodule update --init --recursive
     brew install cmake macvim
-    python3 install.py
+    python install.py
     ./install.py -all --clangd-completer
     popd
 fi

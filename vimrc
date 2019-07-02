@@ -11,17 +11,15 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-
-""""""""""""""""""
 " GENERAL FORMATTING:
 """"""""""""""""""
 " Automatic closing of quotes, parentesis, brackets, etc
 Plugin 'Raimondi/delimitMate'
 " Sets sensible defaults
 Plugin 'tpope/vim-sensible'
+" Editor configuration
+Plugin 'editorconfig/editorconfig-vim'
 
-
-""""""""""""""""""
 " LANGUAGE:
 """"""""""""""""""
 " Various language syntax and indentation support
@@ -36,15 +34,15 @@ Plugin 'Valloric/YouCompleteMe'
 " Comment lines faster
 Plugin 'scrooloose/nerdcommenter'
 
-
+" DOCS:
 """"""""""""""""""
+Plugin 'rizzatti/dash.vim'
+
 " FILE PARSE AND FORMAT SUPPORT:
 """"""""""""""""""
 " CSV support
 Plugin 'chrisbra/csv.vim'
 
-
-""""""""""""""""""
 " LAYOUT:
 """"""""""""""""""
 " File Treeview
@@ -57,8 +55,6 @@ Plugin 'mkitt/tabline.vim'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
-
-""""""""""""""""""
 " VERSIONING SUPPORT:
 """"""""""""""""""
 " GitHub gutter sinage
@@ -66,8 +62,6 @@ Plugin 'airblade/vim-gitgutter'
 " Undo history tree
 Plugin 'sjl/gundo.vim'
 
-
-""""""""""""""""""
 " NAVIGATION AND SEARCH:
 """"""""""""""""""
 " Find files
@@ -76,7 +70,6 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'Lokaltog/vim-easymotion'
 " Window/Layout manager
 Plugin 'wesQ3/vim-windowswap'
-
 
 " Tagline Outline
 " All of your Plugins must be added before the following line
@@ -88,7 +81,6 @@ filetype plugin indent on    " required
 syntax on
 set smartindent
 
-
 " VIM FOLDERS:
 "------------------------------------------------------------------------
 set backupdir=~/.vim/backups
@@ -97,7 +89,6 @@ if exists("&undodir")
     set undodir=~/.vim/undo
 endif
 "------------------------------------------------------------------------
-
 
 
 " MAPPINGS:
@@ -126,6 +117,10 @@ nmap <silent> <C-o> :TagbarToggle<CR>
 nmap <silent> <C-t> :tabnew<CR>
 " EASY MOTION
 nmap f <Plug>(easymotion-s)
+" Disallow use of space or backspace (bad habit)
+nmap <BS> <Nop>
+nmap <Del> <Nop>
+nmap <Space> <Nop>
 
 " GENERAL
 nmap <C-h> :wincmd h<CR>
@@ -142,9 +137,6 @@ nmap <Leader>v :res +5<CR>
 nmap <Leader>> :vertical resize +5<CR>
 nmap <Leader>< :vertical resize -5<CR>
 
-
-
-
 " VIM PROPERTIES:
 ""------------------------------------------------------------------------
 set undofile
@@ -156,10 +148,6 @@ set tabstop=4 shiftwidth=4 expandtab
 set scrolloff=30
 set autowrite " Saves buffers when switching to others -saves a save"
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_ " show “invisible” characters
-
-
-
-
 
 " PLUGINS CUSTOMIZATION:
 ""------------------------------------------------------------------------
@@ -184,9 +172,6 @@ let g:gitgutter_max_signs=10000000
 " MACVIM
 let macvim_skip_colorscheme=1
 
-
-
-
 " CUSTOM COMMANDS:
 ""------------------------------------------------------------------------
 " Updates vim with the latest vimrc
@@ -195,16 +180,11 @@ com! Refresh w | so ~/.vimrc
 "com! HTMLFormat !tidy -mi -html %
 "com! JSONFormat %!python -m json.tool
 
-
 " AUTOCOMMANDS
 " Gets rid of whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 " Remeber the last line before closing file
 autocmd BufReadPost * call setpos(".", getpos("'\""))
-
-
-
-
 
 "  SOLARIZED SETTINGS:
 "------------------------------------------------------------------------
