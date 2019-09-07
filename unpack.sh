@@ -80,3 +80,6 @@ if [ -d "$vimbundle/YouCompleteMe/" ]; then
     ./install.py -all --clangd-completer
     popd
 fi
+
+# Used by vim-prettier
+npm install prettier -g
