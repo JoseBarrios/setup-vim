@@ -27,12 +27,8 @@ Plugin 'prettier/vim-prettier'
 Plugin 'dense-analysis/ale'
 " JS Docs auto comment
 Plugin 'heavenshell/vim-jsdoc'
-
-
 " LANGUAGE:
 """"""""""""""""""
-" Various language syntax and indentation support
-Plugin 'sheerun/vim-polyglot'
 " Autocomplete with tab, uses snippets:
 "Plugin 'SirVer/ultisnips'
 "Plugin 'honza/vim-snippets'
@@ -44,16 +40,21 @@ Plugin 'mattn/emmet-vim'
 Plugin 'scrooloose/nerdcommenter'
 " JsX
 Plugin 'chemzqm/vim-jsx-improve'
+" Go
+Plugin 'fatih/vim-go'
 
 " FILE PARSE AND FORMAT SUPPORT:
 """"""""""""""""""
 " CSV support
 Plugin 'chrisbra/csv.vim'
-" Intellisense
-Plugin 'neoclide/coc.nvim'
-" mkdir -p ~/.vim/pack/coc/start
-" cd ~/.vim/pack/coc/start
-" curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz|tar xzfv -
+" Coc / Intelisense
+"Plugin 'neoclide/coc.nvim'
+"cd ~/.vim/bundle/coc.nvim && npm install
+ "mkdir -p ~/.vim/pack/coc/start
+ "cd ~/.vim/pack/coc/start
+ "curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz|tar xzfv -
+ "IN VIM :call coc#util#install()
+" REFERENCE: https://github.com/neoclide/coc.nvim/issues/651
 
 " LAYOUT:
 """"""""""""""""""
@@ -78,7 +79,7 @@ Plugin 'majutsushi/tagbar'
 " Indent guides
 Plugin 'nathanaelkane/vim-indent-guides'
 " Fonts
-Plugin 'ryanoasis/nerd-fonts'
+"Plugin 'ryanoasis/nerd-fonts' <---- RE-ENABLE WHEN YOU HAVE TIME TO RUN IT, TAKES FOREVER
 
 " VERSIONING SUPPORT:
 """"""""""""""""""
@@ -278,25 +279,26 @@ autocmd BufRead,BufNewFile * setlocal textwidth=100 colorcolumn=100
 "set spell spelllang=en_ca
 
 let g:ale_sign_error = '🛑'
-let g:ale_sign_warning = '⚠️'
-highlight clear ALEErrorSign
-highlight clear ALEWarningSign
+""let g:ale_sign_warning = '⚠️'
+"highlight clear ALEErrorSign
+"highlight clear ALEWarningSign
 let g:ale_fixers = ['prettier', 'eslint']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-"let g:ale_fix_on_save = 1
-"let g:ale_sign_column_always = 1
-"let g:ale_lint_on_insert_leave = 1
-"let g:ale_lint_on_enter = 1
-"let g:ale_completion_enabled = 1
+let g:ale_fix_on_save = 1
+let g:ale_sign_column_always = 1
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_enter = 1
+let g:ale_completion_enabled = 1
+let g:ale_exclude_highlights = 0
 
 " when running at every change you may want to disable quickfix
-"let g:prettier#autoformat = 0
-"let g:prettier#quickfix_enabled = 0
-"let g:prettier#quickfix_auto_focus = 0
-"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+let g:prettier#autoformat = 0
+let g:prettier#quickfix_enabled = 0
+let g:prettier#quickfix_auto_focus = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 
 " Only set cursor in current window, not all
