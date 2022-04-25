@@ -22,6 +22,10 @@ Plugin 'ap/vim-css-color'
 " Pretty-up code
 " JS Docs auto comment
 Plugin 'heavenshell/vim-jsdoc'
+" Linting for JS
+Plugin 'eslint/eslint'
+
+
 " LANGUAGE:
 """"""""""""""""""
 " Autocomplete with tab, uses snippets:
@@ -40,15 +44,17 @@ Plugin 'm-kat/aws-vim'
 " Git ignore
 Plugin 'gisphm/vim-gitignore'
 " Python
-Plugin 'klen/python-mode'
+"Plugin 'klen/python-mode'
 Plugin 'psf/black'
 Plugin 'nvie/vim-flake8'
-"Plugin 'jmcantrell/vim-virtualenv'
 " Pug
 Plugin 'digitaltoad/vim-pug'
 " Ansible
 Plugin 'pearofducks/ansible-vim'
-
+" Jenkins
+Plugin 'thanethomson/vim-jenkinsfile'
+" Python indent
+Plugin 'indentpython.vim'
 
 " IDE:
 " Comment lines faster
@@ -56,7 +62,7 @@ Plugin 'scrooloose/nerdcommenter'
 " On request snippets templates
 Plugin 'mattn/emmet-vim'
 " Coc / Intelisense
-Plugin 'neoclide/coc.nvim'
+"Plugin 'neoclide/coc.nvim' " REPLACED BY KITE
 " Linting
 Plugin 'mitermayer/vim-prettier'
 " mkdir -p ~/.vim/pack/plugins/start
@@ -90,6 +96,11 @@ Plugin 'ryanoasis/nerd-fonts'
 Plugin 'ryanoasis/vim-devicons'
 " Fuzzy directory finding
 Plugin 'junegunn/fzf.vim'
+" Debugger
+Plugin 'puremourning/vimspector'
+" Grammar checker
+Plugin 'rhysd/vim-grammarous'
+
 
 " FILE PARSE AND FORMAT SUPPORT:
 """"""""""""""""""
@@ -107,7 +118,7 @@ Plugin 'chrisbra/csv.vim'
 " GitHub gutter sinage
 Plugin 'airblade/vim-gitgutter'
 " Undo history tree
-Plugin 'sjl/gundo.vim'
+Plugin 'mbbill/undotree'
 " Github
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rhubarb'
@@ -119,13 +130,15 @@ Plugin 'Lokaltog/vim-easymotion'
 " Window/Layout manager
 Plugin 'wesQ3/vim-windowswap'
 " Grep like
-Plugin 'jremmen/vim-ripgrep'
+"Plugin 'jremmen/vim-ripgrep'
 " Open terminal window inside editor
 Plugin 'voldikss/vim-floaterm'
+" Fuzzy searcr
+Plugin 'haya14busa/incsearch.vim'
 
 " DOCSETS:
 """""""""""""""""""
-Plugin 'rizzatti/dash.vim'
+"Plugin 'rizzatti/dash.vim'
 
 " Tagline Outline
 " All of your Plugins must be added before the following line
@@ -134,7 +147,6 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 "------------------------------------------------------------------------
 
-set smartindent
 set encoding=UTF-8
 
 " VIM FOLDERS:
@@ -165,14 +177,16 @@ packloadall
 let mapleader = ","
 " WINDOW SWAP
 map <silent> <leader>ww :call WindowSwap#EasyWindowSwap()<CR>
-" GUNDO
-nmap <silent> <C-u> :GundoToggle<CR>
+
 " NERDTree
 nmap <silent> <C-n> :NERDTreeToggle<CR>
+
 " TAGBAR
 nmap <silent> <C-t> :TagbarToggle<CR>
+
 " Terminal
 let g:floaterm_keymap_toggle = '<C-t>'
+
 " Fuzzy search
 nmap <silent> <C-f> :Files<CR>
 
@@ -180,13 +194,14 @@ nmap <silent> <C-f> :Files<CR>
 " Cloudformation validation
 " let g:AWSVimValidate = 1 (need to test if it works properly first)
 
-" EASY MOTION
- nmap f <Plug>(easymotion-s)
-
 " Disallow use of space or backspace (bad habit)
 nmap <BS> <Nop>
 nmap <Del> <Nop>
 nmap <Space> <Nop>
+noremap h <NOP>
+"noremap j <NOP>
+"noremap k <NOP>
+noremap l <NOP>
 
 " GENERAL
 nmap <C-h> :wincmd h<CR>
@@ -208,16 +223,32 @@ nmap <Leader>< :vertical resize -5<CR>
 set undofile
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=1000 "maximum number lines to save for undo on a buffer
-" set number        " display line numbers
-set number relativenumber " display relative line numbers and normal line numbers"
+set number        " display line numbers
+" set number relativenumber " display relative line numbers and normal line numbers"
 set hlsearch " Highlight search matches"
-set tabstop=2 shiftwidth=2 expandtab
+set expandtab           " enter spaces when tab is pressed
+set textwidth=120       " break lines when line length increases
+set tabstop=4           " use 4 spaces to represent tab
+set softtabstop=4
+set shiftwidth=4        " number of spaces to use for auto indent
+set autoindent          " copy indent from current line when starting a new line
+" make backspaces more powerfull
+set backspace=indent,eol,start
+set ruler                           " show line and column number
+syntax on               " syntax highlighting
+set showcmd             " show (partial) command in status line
 set scrolloff=30
 set autowrite " Saves buffers when switching to others -saves a save"
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_ " show “invisible” characters
 
 " PLUGINS CUSTOMIZATION:
 ""------------------------------------------------------------------------
+" Inspector
+let g:vimspector_enable_mappings = 'HUMAN'
+packadd! vimspector
+
+" Black
+let g:black_quiet = 1
 
 " JSDocs
 let g:jsdoc_allow_input_prompt = 1
@@ -244,13 +275,24 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts=1
-
+"let g:airline_section_a=''
+let g:airline_section_b=''
+let g:airline_section_c=''
+let g:airline_section_x=''
+let g:airline_section_y=''
+let g:airline_section_z=''
+"
 " GUTTER
 let g:gitgutter_max_signs=10000000
-let g:gitgutter_highlight_lines = 1
+"let g:gitgutter_highlight_lines = 1
 
 " MACVIM
 let macvim_skip_colorscheme=1
+
+" Fuzzy search
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 " IDE / CTAGS
 " REQUIRES: brew install ctags-exuberant global
@@ -262,18 +304,18 @@ let g:gutentags_project_root = ['.git']
 let g:gutentags_cache_dir = expand('~/.cache/tags')
 
 " change focus to quickfix window after search (optional).
-let g:gutentags_plus_switch = 1
-let g:gutentags_plus_nomap = 1
-let g:gutentags_define_advanced_commands = 1
-noremap <silent> <leader>gs :GscopeFind s <C-R><C-W><cr>
-noremap <silent> <leader>gg :GscopeFind g <C-R><C-W><cr>
-noremap <silent> <leader>gc :GscopeFind c <C-R><C-W><cr>
-noremap <silent> <leader>gt :GscopeFind t <C-R><C-W><cr>
-noremap <silent> <leader>ge :GscopeFind e <C-R><C-W><cr>
-noremap <silent> <leader>gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
-noremap <silent> <leader>gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
-noremap <silent> <leader>gd :GscopeFind d <C-R><C-W><cr>
-noremap <silent> <leader>ga :GscopeFind a <C-R><C-W><cr>
+"let g:gutentags_plus_switch = 1
+"let g:gutentags_plus_nomap = 1
+"let g:gutentags_define_advanced_commands = 1
+"noremap <silent> <leader>gs :GscopeFind s <C-R><C-W><cr>
+"noremap <silent> <leader>gg :GscopeFind g <C-R><C-W><cr>
+"noremap <silent> <leader>gc :GscopeFind c <C-R><C-W><cr>
+"noremap <silent> <leader>gt :GscopeFind t <C-R><C-W><cr>
+"noremap <silent> <leader>ge :GscopeFind e <C-R><C-W><cr>
+"noremap <silent> <leader>gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
+"noremap <silent> <leader>gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
+"noremap <silent> <leader>gd :GscopeFind d <C-R><C-W><cr>
+"noremap <silent> <leader>ga :GscopeFind a <C-R><C-W><cr>
 
 " CUSTOM COMMANDS:
 ""------------------------------------------------------------------------
@@ -281,13 +323,7 @@ noremap <silent> <leader>ga :GscopeFind a <C-R><C-W><cr>
 com! Refresh w | so ~/.vimrc
 "com! AF Autoformat
 "com! HTMLFormat !tidy -mi -html %
-"com! JSONFormat %!python -m json.tool
-
-" AUTOCOMMANDS
-" Gets rid of white space on save
-autocmd BufWritePre * :%s/\s\+$//e
-" Remember the last line before closing file
-autocmd BufReadPost * call setpos(".", getpos("'\""))
+com! JSONFormat %!python -m json.tool
 
 "  SOLARIZED SETTINGS:
 "------------------------------------------------------------------------
@@ -307,7 +343,6 @@ highlight GitGutterChangeDelete ctermfg=yellow guifg=yellow
 "------------------------------------------------------------------------
 "  FORMATTING SETTINGS:
 "------------------------------------------------------------------------
-autocmd BufRead,BufNewFile * setlocal textwidth=80 colorcolumn=80
 " Enable spell :set spell
 "set complete+=kspell
 "set spell spelllang=en_ca
@@ -317,23 +352,24 @@ let g:ale_sign_error = '🔥'
 let g:ale_sign_warning = '⚠️ '
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
-let g:ale_fixers = ['prettier', 'eslint']
+let g:ale_fixers = {}
+let g:ale_fixers.python = ['black']
+let g:ale_fixers.javascript = ['eslint', 'prettier']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-let g:ale_fix_on_save = 0
+let g:ale_fix_on_save = 1
 let g:ale_sign_column_always = 1
-let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_enter = 0
 let g:ale_completion_enabled = 1
-let g:ale_exclude_highlights = 0
+let g:ale_exclude_highlights = 1
 
 " when running at every change you may want to disable quickfix
 let g:prettier#autoformat = 1
 let g:prettier#quickfix_enabled = 1
-let g:prettier#quickfix_auto_focus = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+let g:prettier#quickfix_auto_focus = 1
 
 " Only set cursor in current window, not all
 augroup CursorLine
@@ -352,18 +388,29 @@ let g:fzf_preview_window = 'right:50%'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
 
 " Floating terminal window
-let g:floaterm_width = 0.75
-let g:floaterm_height = 0.75
+let g:floaterm_width = 0.90
+let g:floaterm_height = 0.90
 
 "------------------------------------------------------------------------
 "  PYTHON SETTINGS:
 "------------------------------------------------------------------------
-
 let python_highlight_all=1
 syntax on
-" Format Python on save using Black
-"autocmd BufWritePre *.py execute ':Black'
 
+
+" AUTO COMMANDS:
+""------------------------------------------------------------------------
+" TODO: Bring back black and whitespace
+" Gets rid of white space on save
+autocmd BufWritePre * :%s/\s\+$//e
+" Remember the last line before closing file
+autocmd BufReadPost * call setpos(".", getpos("'\""))
+" Formats python to Black
+autocmd BufWritePre *.py execute ':Black'
+" Autodelmits line length
+autocmd BufRead,BufNewFile * setlocal textwidth=80 colorcolumn=80
+" Pretties web files
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 " Use Fugitive to review the last Git commit. Call :ReviewLastCommit() to use it
 function! ReviewLastCommit()

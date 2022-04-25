@@ -86,4 +86,3 @@ npm install prettier -g
 
 # used by black
 cd ~/.vim/bundle/black
-git checkout origin/stable -b stable
