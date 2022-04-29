@@ -39,12 +39,10 @@ Plugin 'chemzqm/vim-jsx-improve'
 Plugin 'fatih/vim-go'
 " Yaml
 " Plugin 'stephpy/vim-yaml'
-" Cloudformation
-Plugin 'm-kat/aws-vim'
 " Git ignore
 Plugin 'gisphm/vim-gitignore'
 " Python
-"Plugin 'klen/python-mode'
+Plugin 'klen/python-mode'
 Plugin 'psf/black'
 Plugin 'nvie/vim-flake8'
 " Pug
@@ -95,12 +93,13 @@ Plugin 'ryanoasis/nerd-fonts'
 " Icons
 Plugin 'ryanoasis/vim-devicons'
 " Fuzzy directory finding
+" brew install fzf
 Plugin 'junegunn/fzf.vim'
+Plugin 'junegunn/fzf'
 " Debugger
 Plugin 'puremourning/vimspector'
 " Grammar checker
 Plugin 'rhysd/vim-grammarous'
-
 
 " FILE PARSE AND FORMAT SUPPORT:
 """"""""""""""""""
@@ -130,7 +129,7 @@ Plugin 'Lokaltog/vim-easymotion'
 " Window/Layout manager
 Plugin 'wesQ3/vim-windowswap'
 " Grep like
-"Plugin 'jremmen/vim-ripgrep'
+Plugin 'jremmen/vim-ripgrep'
 " Open terminal window inside editor
 Plugin 'voldikss/vim-floaterm'
 " Fuzzy searcr
@@ -275,7 +274,7 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts=1
-"let g:airline_section_a=''
+let g:airline_section_a=''
 let g:airline_section_b=''
 let g:airline_section_c=''
 let g:airline_section_x=''
@@ -284,7 +283,8 @@ let g:airline_section_z=''
 "
 " GUTTER
 let g:gitgutter_max_signs=10000000
-"let g:gitgutter_highlight_lines = 1
+let g:gitgutter_highlight_lines = 0
+let g:gitgutter_highlight_linenrs = 1
 
 " MACVIM
 let macvim_skip_colorscheme=1
@@ -350,19 +350,28 @@ highlight GitGutterChangeDelete ctermfg=yellow guifg=yellow
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_sign_error = '🔥'
 let g:ale_sign_warning = '⚠️ '
+" No highlight errors
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
 let g:ale_fixers = {}
-let g:ale_fixers.python = ['black']
-let g:ale_fixers.javascript = ['eslint', 'prettier']
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
+let g:ale_fixers.python = [ 'autoflake', 'autoimport', 'autopep8', 'black', 'isort' ]
+let g:ale_fixers.javascript = [ 'prettier', 'eslint']
+let g:ale_fixers.jsx = [ 'eslint', 'stylelint']
+
+let g:ale_linters = {}
+let g:ale_linters.python = [ 'flake8', 'mypy', 'remove_trailing_lines', 'trim_whitespace' ]
+let g:ale_linters.javascript = ['eslint', 'stylelint']
+
+let g:ale_echo_msg_error_str = '🔥'
+let g:ale_echo_msg_warning_str = '⚠️ '
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 let g:ale_fix_on_save = 1
 let g:ale_sign_column_always = 1
+
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_enter = 0
+
 let g:ale_completion_enabled = 1
 let g:ale_exclude_highlights = 1
 
