@@ -38,7 +38,7 @@ Plugin 'chemzqm/vim-jsx-improve'
 " Go
 Plugin 'fatih/vim-go'
 " Yaml
-" Plugin 'stephpy/vim-yaml'
+ Plugin 'stephpy/vim-yaml'
 " Git ignore
 Plugin 'gisphm/vim-gitignore'
 " Python
@@ -60,7 +60,12 @@ Plugin 'scrooloose/nerdcommenter'
 " On request snippets templates
 Plugin 'mattn/emmet-vim'
 " Coc / Intelisense
-"Plugin 'neoclide/coc.nvim' " REPLACED BY KITE
+Plugin 'neoclide/coc.nvim'
+ "cd ~/.vim/bundle/coc.nvim && npm install
+ "mkdir -p ~/.vim/pack/coc/start
+ "cd ~/.vim/pack/coc/start
+" REFERENCE: https://github.com/neoclide/coc.nvim/issues/651
+
 " Linting
 Plugin 'mitermayer/vim-prettier'
 " mkdir -p ~/.vim/pack/plugins/start
@@ -105,12 +110,7 @@ Plugin 'rhysd/vim-grammarous'
 """"""""""""""""""
 " CSV support
 Plugin 'chrisbra/csv.vim'
- "cd ~/.vim/bundle/coc.nvim && npm install
- "mkdir -p ~/.vim/pack/coc/start
- "cd ~/.vim/pack/coc/start
- "curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz|tar xzfv -
- "IN VIM :call coc#util#install()
-" REFERENCE: https://github.com/neoclide/coc.nvim/issues/651
+
 
 " VERSIONING SUPPORT:
 """"""""""""""""""
@@ -198,8 +198,8 @@ nmap <BS> <Nop>
 nmap <Del> <Nop>
 nmap <Space> <Nop>
 noremap h <NOP>
-"noremap j <NOP>
-"noremap k <NOP>
+noremap j <NOP>
+noremap k <NOP>
 noremap l <NOP>
 
 " GENERAL
@@ -274,13 +274,16 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts=1
-let g:airline_section_a=''
-let g:airline_section_b=''
-let g:airline_section_c=''
-let g:airline_section_x=''
-let g:airline_section_y=''
-let g:airline_section_z=''
-"
+
+let g:airline_section_a='' " Disallow Vim Mode
+let g:airline_section_b='' " Disallow Git edit tracker new/modified/deleted
+" ALLOW let g:airline_section_c='' " File path/name
+
+let g:airline_section_x='' " Disallow File type and utf info
+let g:airline_section_y='' " Disallow <<< colors
+let g:airline_section_u='' " Disallow utf type
+let g:airline_section_z='' " Disallow File position, lines, etc
+
 " GUTTER
 let g:gitgutter_max_signs=10000000
 let g:gitgutter_highlight_lines = 0
@@ -304,9 +307,9 @@ let g:gutentags_project_root = ['.git']
 let g:gutentags_cache_dir = expand('~/.cache/tags')
 
 " change focus to quickfix window after search (optional).
-"let g:gutentags_plus_switch = 1
-"let g:gutentags_plus_nomap = 1
-"let g:gutentags_define_advanced_commands = 1
+let g:gutentags_plus_switch = 1
+let g:gutentags_plus_nomap = 1
+let g:gutentags_define_advanced_commands = 1
 "noremap <silent> <leader>gs :GscopeFind s <C-R><C-W><cr>
 "noremap <silent> <leader>gg :GscopeFind g <C-R><C-W><cr>
 "noremap <silent> <leader>gc :GscopeFind c <C-R><C-W><cr>
@@ -354,12 +357,12 @@ let g:ale_sign_warning = '⚠️ '
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
 let g:ale_fixers = {}
-let g:ale_fixers.python = [ 'autoflake', 'autoimport', 'autopep8', 'black', 'isort' ]
+let g:ale_fixers.python = [ 'black']
 let g:ale_fixers.javascript = [ 'prettier', 'eslint']
 let g:ale_fixers.jsx = [ 'eslint', 'stylelint']
 
 let g:ale_linters = {}
-let g:ale_linters.python = [ 'flake8', 'mypy', 'remove_trailing_lines', 'trim_whitespace' ]
+let g:ale_linters.python = [ 'flake8', 'remove_trailing_lines', 'trim_whitespace' ]
 let g:ale_linters.javascript = ['eslint', 'stylelint']
 
 let g:ale_echo_msg_error_str = '🔥'
@@ -377,8 +380,8 @@ let g:ale_exclude_highlights = 1
 
 " when running at every change you may want to disable quickfix
 let g:prettier#autoformat = 1
-let g:prettier#quickfix_enabled = 1
-let g:prettier#quickfix_auto_focus = 1
+let g:prettier#quickfix_enabled = 0
+let g:prettier#quickfix_auto_focus = 0
 
 " Only set cursor in current window, not all
 augroup CursorLine
@@ -414,8 +417,8 @@ syntax on
 autocmd BufWritePre * :%s/\s\+$//e
 " Remember the last line before closing file
 autocmd BufReadPost * call setpos(".", getpos("'\""))
-" Formats python to Black
-autocmd BufWritePre *.py execute ':Black'
+" Formats python to Black (Ale takes care of this)
+"autocmd BufWritePre *.py execute ':Black'
 " Autodelmits line length
 autocmd BufRead,BufNewFile * setlocal textwidth=80 colorcolumn=80
 " Pretties web files
